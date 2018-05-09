@@ -1,0 +1,12 @@
+<template class="blade-tabs-empty">
+    <div class="blade-tabs-header">
+        <select class="form-control"
+                value.bind="activeController">
+            <option repeat.for="item of controllers"
+                    model.bind="item">${item.title}${!!item.subtitle? ': ': ''}${item.subtitle}</option>
+        </select>
+    </div>
+    <blade if.bind="!!activeController"
+           value.bind="activeController"
+           class="blade-inverse"></blade>
+</template>

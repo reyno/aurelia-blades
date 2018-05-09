@@ -1,0 +1,5 @@
+<template>
+    <blade repeat.for="item of controllers"
+           value.bind="item"
+           css="z-index: ${9999 - $index}"></blade>
+</template>

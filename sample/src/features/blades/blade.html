@@ -1,0 +1,78 @@
+<template class="blade-size-${value.size}">
+    <require from="./blade-loading"></require>
+
+    <div class="blade-header"
+         if.bind="loading">
+        <div class="blade-header-icon">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="blade-header-text">
+            <div class="blade-header-title">
+                loading...
+            </div>
+        </div>
+        <div class="blade-header-actions">
+            <button click.trigger="close()">
+                <i class="fa fa-remove"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="blade-header"
+         if.bind="!loading">
+        <div class="blade-header-icon">
+            <i class="fa fa-${value.icon}"></i>
+        </div>
+        <div class="blade-header-text">
+            <div class="blade-header-title">
+                ${value.title}
+            </div>
+            <div class="blade-header-sub-title"
+                 if.bind="!!value.subtitle">
+                ${value.subtitle}
+            </div>
+        </div>
+        <div class="blade-header-actions">
+            <button click.trigger="toggleCollapse()"
+                    if.bind="value.canMinimise">
+                <i class="fa fa-${_collapsed ? 'angle-right' : 'angle-left'}"></i>
+            </button>
+            <button click.trigger="toggleMaximise()"
+                    if.bind="value.canMaximise">
+                <i class="fa fa-expand"></i>
+            </button>
+            <button click.trigger="pin()"
+                    if.bind="value.canPin">
+                <i class="fa fa-thumb-tack"></i>
+            </button>
+            <button click.trigger="close()">
+                <i class="fa fa-remove"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="blade-body">
+        <div class="blade-menu"
+             if.bind="!loading && value.config.views.length > 1">
+            <ul>
+                <li repeat.for="item of value.config.views"
+                    class="${(value.view.name === item.name || ($index == 0 && !value.view.name)) ? 'active' : ''}"
+                    click.delegate="changeView(item)">
+                    <i class="fa fa-${item.loading ? 'spinner fa-spin' : getIcon(item)}"></i>
+                    <span>${item.title}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="blade-view-loading"
+             if.bind="loading">
+            <div>
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+        </div>
+        <div class="blade-view"
+             css="${loading ? 'flex: 0;':''}">
+            <template element.ref="template"></template>
+        </div>
+    </div>
+</template>

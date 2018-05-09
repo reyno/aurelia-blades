@@ -1,0 +1,9 @@
+<template>
+    <div class="blade-view-content text-danger">
+        <h1>${error.Message}</h1>
+        <hr>
+        <ul style="list-style-type: none;" if.bind="error.Stack">
+            <li repeat.for="item of error.Stack">${item}</li>
+        </ul>
+    </div>
+</template>
